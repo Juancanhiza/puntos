@@ -7,20 +7,20 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import py.com.progweb.prueba.model.Cliente;
+import py.com.progweb.prueba.model.UsoPuntosCabecera;
 
 @Stateless
-public class ClienteDAO {
+public class UsoPuntosCabeceraDAO {
 	
         @PersistenceContext(unitName="puntosPU")
 	private EntityManager em;
 	
-	public void agregar(Cliente entity) {
+	public void agregar(UsoPuntosCabecera entity) {
 		this.em.persist(entity);
 	}
 	
-	public List<Cliente> listar () {
-		Query q = this.em.createQuery("select p from Cliente p");
-		return (List<Cliente>) q.getResultList();
+	public List<UsoPuntosCabecera> listar () {
+		Query q = this.em.createQuery("select p from UsoPuntosCabecera p");
+		return (List<UsoPuntosCabecera>) q.getResultList();
 	}
 }

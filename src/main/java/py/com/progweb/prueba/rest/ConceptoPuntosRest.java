@@ -7,27 +7,27 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
+import py.com.progweb.prueba.ejb.ConceptoPuntosDAO;
+import py.com.progweb.prueba.model.ConceptoPuntos;
 
-import py.com.progweb.prueba.ejb.ClienteDAO;
-import py.com.progweb.prueba.model.Cliente;
-
-@Path("clientes")
+@Path("conceptos")
 @Consumes("application/json")
 @Produces("application/json")
-public class ClienteRest {
-	@Inject
-	private ClienteDAO clienteDAO;
+public class ConceptoPuntosRest {
+    @Inject
+	private ConceptoPuntosDAO ConceptoPuntosDAO;
 	
 	@GET
 	@Path("/")
 	public Response listar() {
-		return Response.ok(clienteDAO.listar()).build();
+		return Response.ok(ConceptoPuntosDAO.listar()).build();
 	}
 	
 	@POST
 	@Path("/")
-	public Response agregar(Cliente entity) {
-		this.clienteDAO.agregar(entity);
+	public Response agregar(ConceptoPuntos entity) {
+		this.ConceptoPuntosDAO.agregar(entity);
 		return Response.ok().build();
 	}
+    
 }

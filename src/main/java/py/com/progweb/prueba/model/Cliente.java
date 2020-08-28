@@ -9,10 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 @Entity
 @Table(name="cliente")
 public class Cliente {
+    
     @Id
     @Column(name="id")
     @Basic(optional=false)
@@ -46,7 +48,12 @@ public class Cliente {
     private String telefono;
 
     @Column(name="fecha_nacimiento")
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaNacimiento;
+    
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
+//    @JsonBackReference
+//    private List <BolsaPuntos> bolsas;
 
     public Integer getId() {
         return id;
@@ -119,5 +126,13 @@ public class Cliente {
     public void setFecha_nacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
-
+    
+//    public List<BolsaPuntos> getBolsas() {
+//        return bolsas;
+//    }
+//
+//    public void setBolsas(List<BolsaPuntos> bolsas) {
+//        this.bolsas = bolsas;
+//    }
+   
 }
