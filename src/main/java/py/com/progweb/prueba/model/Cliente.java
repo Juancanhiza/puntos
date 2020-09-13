@@ -7,53 +7,68 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 @Entity
-@Table(name="cliente")
+@Table(name = "cliente")
+@NamedQueries({
+    @NamedQuery(
+            name = "Cliente.all",
+            query = "SELECT c FROM Cliente c")
+    ,
+    @NamedQuery(
+            name = "Cliente.byNombre",
+            query = "SELECT c FROM Cliente c WHERE c.nombre LIKE :nombreCliente")
+    ,
+    @NamedQuery(
+            name = "Cliente.byApellido",
+            query = "SELECT c FROM Cliente c WHERE c.apellido LIKE :nombreApellido")
+    ,
+    @NamedQuery(
+            name = "Cliente.byCumple",
+            query = "SELECT c FROM Cliente c ")
+})  
 public class Cliente {
-    
+
     @Id
-    @Column(name="id")
-    @Basic(optional=false)
-    @GeneratedValue(generator="clienteSec", strategy=GenerationType.SEQUENCE)
-    @SequenceGenerator(name="clienteSec", sequenceName = "cliente_sec", allocationSize = 0)
+    @Column(name = "id")
+    @Basic(optional = false)
+    @GeneratedValue(generator = "clienteSec", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "clienteSec", sequenceName = "cliente_sec", allocationSize = 0)
     private Integer id;
 
-    @Column(name="nombre", length = 50)
-    @Basic(optional=false)
+    @Column(name = "nombre", length = 50)
+    @Basic(optional = false)
     private String nombre;
 
-    @Column(name="apellido", length = 50)
-    @Basic(optional=false)
+    @Column(name = "apellido", length = 50)
+    @Basic(optional = false)
     private String apellido;
 
-    @Column(name="numero_documento")
-    @Basic(optional=false)
+    @Column(name = "numero_documento")
+    @Basic(optional = false)
     private Integer numeroDocumento;
 
-    @Column(name="tipo_documento", length = 50)
-    @Basic(optional=false)
+    @Column(name = "tipo_documento", length = 50)
+    @Basic(optional = false)
     private String tipoDocumento;
 
-    @Column(name="nacionalidad", length = 50)
+    @Column(name = "nacionalidad", length = 50)
     private String nacionalidad;
 
-    @Column(name="email", length = 50)
+    @Column(name = "email", length = 50)
     private String email;
 
-    @Column(name="telefono", length = 50)
+    @Column(name = "telefono", length = 50)
     private String telefono;
 
-    @Column(name="fecha_nacimiento")
+    @Column(name = "fecha_nacimiento")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaNacimiento;
-    
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
-//    @JsonBackReference
-//    private List <BolsaPuntos> bolsas;
 
     public Integer getId() {
         return id;
@@ -119,20 +134,16 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-    public Date getFecha_nacimiento() {
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFecha_nacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
-    
-//    public List<BolsaPuntos> getBolsas() {
-//        return bolsas;
-//    }
-//
-//    public void setBolsas(List<BolsaPuntos> bolsas) {
-//        this.bolsas = bolsas;
-//    }
-   
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", numeroDocumento=" + numeroDocumento + ", tipoDocumento=" + tipoDocumento + ", nacionalidad=" + nacionalidad + ", email=" + email + ", telefono=" + telefono + ", fechaNacimiento=" + fechaNacimiento + '}';
+    }
 }

@@ -7,27 +7,28 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
-import py.com.progweb.prueba.ejb.ConceptoPuntosDAO;
+import py.com.progweb.prueba.ejb.ConceptoPuntosBean;
 import py.com.progweb.prueba.model.ConceptoPuntos;
 
 @Path("conceptos")
 @Consumes("application/json")
 @Produces("application/json")
 public class ConceptoPuntosRest {
+
     @Inject
-	private ConceptoPuntosDAO ConceptoPuntosDAO;
-	
-	@GET
-	@Path("/")
-	public Response listar() {
-		return Response.ok(ConceptoPuntosDAO.listar()).build();
-	}
-	
-	@POST
-	@Path("/")
-	public Response agregar(ConceptoPuntos entity) {
-		this.ConceptoPuntosDAO.agregar(entity);
-		return Response.ok().build();
-	}
-    
+    private ConceptoPuntosBean ConceptoPuntosBean;
+
+    @GET
+    @Path("/")
+    public Response listar() {
+        return Response.ok(ConceptoPuntosBean.listar()).build();
+    }
+
+    @POST
+    @Path("/")
+    public Response agregar(ConceptoPuntos entity) {
+        this.ConceptoPuntosBean.agregar(entity);
+        return Response.ok().build();
+    }
+
 }

@@ -1,33 +1,78 @@
 package py.com.progweb.prueba.rest;
 
+import java.text.ParseException;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import py.com.progweb.prueba.ejb.UsoPuntosCabeceraDAO;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import py.com.progweb.prueba.ejb.UsoPuntosCabeceraBean;
 import py.com.progweb.prueba.model.UsoPuntosCabecera;
 
 @Path("usos/cabeceras")
 @Consumes("application/json")
 @Produces("application/json")
 public class UsoPuntosCabeceraRest {
-	@Inject
-	private UsoPuntosCabeceraDAO usoPuntosCabeceraDAO;
-	
-	@GET
-	@Path("/")
-	public Response listar() {
-		return Response.ok(usoPuntosCabeceraDAO.listar()).build();
-	}
-	
-	@POST
-	@Path("/")
-	public Response agregar(UsoPuntosCabecera entity) {
-		this.usoPuntosCabeceraDAO.agregar(entity);
-		return Response.ok().build();
-	}
+
+    private static final Logger LOGGER = LogManager.getLogger(UsoPuntosCabeceraRest.class);
+    @Inject
+    private UsoPuntosCabeceraBean usoPuntosCabeceraBean;
+
+    @GET
+    @Path("/")
+    public Response listar() {
+        return Response.ok(usoPuntosCabeceraBean.listar()).build();
+    }
+
+    @POST
+    @Path("/")
+    public Response agregar(UsoPuntosCabecera entity) {
+        this.usoPuntosCabeceraBean.agregar(entity);
+        return Response.ok().build();
+    }
+
+    @GET
+    @Path("/byConcepto")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listarByConcepto(@QueryParam("id") Integer idConcepto) {
+        return Response.ok(usoPuntosCabeceraBean.listarByConcepto(idConcepto)).build();
+    }
+
+    @GET
+    @Path("/byFecha")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listarByFecha(
+            @QueryParam("fechaInicio") String fechaInicio,
+            @QueryParam("fechaFin") String fechaFin) {
+
+        try {
+            return Response.ok(usoPuntosCabeceraBean.listarByFecha(fechaInicio, fechaFin)).build();
+        } catch (ParseException ex) {
+            LOGGER.error("", ex);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
+    @GET
+    @Path("/byCliente")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listarByCliente(@QueryParam("id") Integer idCliente) {
+        return Response.ok(usoPuntosCabeceraBean.listarByCliente(idCliente)).build();
+    }
+    
+    @POST
+    @Path("/cargar/{idCliente}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response utilizarPuntos(@PathParam("idCliente") Integer idCliente, @QueryParam("idConcepto") Integer idConcepto){
+        this.usoPuntosCabeceraBean.utilizarPuntos(idCliente, idConcepto);
+        return Response.ok().build();
+    }
 }

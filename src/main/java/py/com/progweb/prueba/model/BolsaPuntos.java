@@ -11,54 +11,66 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 @Entity
-@Table(name="bolsa_puntos")
+@Table(name = "bolsa_puntos")
+@NamedQueries({
+    @NamedQuery(
+            name = "BolsaPuntos.all", 
+            query = "SELECT b FROM BolsaPuntos b"),
+    @NamedQuery(
+            name = "BolsaPuntos.byCliente", 
+            query = "SELECT b FROM BolsaPuntos b WHERE b.cliente=:idCliente"),
+    @NamedQuery(
+            name = "BolsaPuntos.byRango", 
+            query = "SELECT b FROM BolsaPuntos b WHERE b.puntosSaldo BETWEEN :valorInicio and :valorFin"),
+    @NamedQuery(
+            name = "BolsaPuntos.clientesByVencimiento", 
+            query = "SELECT b.cliente FROM BolsaPuntos b JOIN b.cliente c WHERE b.fechaCaducidad BETWEEN :fechaActual AND :fechaVencimiento"),
+})
 public class BolsaPuntos {
+
     @Id
-    @Column(name="id")
-    @Basic(optional=false)
-    @GeneratedValue(generator="bolsaPuntosSec", strategy=GenerationType.SEQUENCE)
-    @SequenceGenerator(name="bolsaPuntosSec", sequenceName = "bolsa_puntos_sec", allocationSize = 0)
+    @Column(name = "id")
+    @Basic(optional = false)
+    @GeneratedValue(generator = "bolsaPuntosSec", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "bolsaPuntosSec", sequenceName = "bolsa_puntos_sec", allocationSize = 0)
     private Integer id;
-    
-    @JoinColumn(name="id_cliente", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.EAGER, optional= false)
-//    @JsonManagedReference
+
+    @JoinColumn(name = "id_cliente", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private Cliente cliente;
-    
-    @Column(name="fecha_asignacion")
+
+    @Column(name = "fecha_asignacion")
     @Temporal(javax.persistence.TemporalType.DATE)
-    @Basic(optional=false)
+    @Basic(optional = false)
     private Date fechaAsignacion;
-    
-    @Column(name="fecha_caducidad")
+
+    @Column(name = "fecha_caducidad")
     @Temporal(javax.persistence.TemporalType.DATE)
-    @Basic(optional=false)
+    @Basic(optional = false)
     private Date fechaCaducidad;
-    
-    @Column(name="puntos_utilizados")
-    @Basic(optional=false)
+
+    @Column(name = "puntos_utilizados")
+    @Basic(optional = false)
     private Integer puntosAsignados;
-    
-    @Column(name="puntos_asignados")
-    @Basic(optional=false)
+
+    @Column(name = "puntos_asignados")
+    @Basic(optional = false)
     private Integer puntosUtilizados;
-    
-    @Column(name="puntos_saldo")
-    @Basic(optional=false)
+
+    @Column(name = "puntos_saldo")
+    @Basic(optional = false)
     private Integer puntosSaldo;
-    
-    @Column(name="monto_operacion")
-    @Basic(optional=false)
+
+    @Column(name = "monto_operacion")
+    @Basic(optional = false)
     private BigDecimal montoOperacion;
-    
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bolsa")
-//    @JsonBackReference
-//    private List<UsoPuntosDetalle> usoPuntos;
 
     public Integer getId() {
         return id;
@@ -124,12 +136,9 @@ public class BolsaPuntos {
         this.montoOperacion = montoOperacion;
     }
 
-//    public List<UsoPuntosDetalle> getUsoPuntos() {
-//        return usoPuntos;
-//    }
-//
-//    public void setUsoPuntos(List<UsoPuntosDetalle> usoPuntos) {
-//        this.usoPuntos = usoPuntos;
-//    }
+    @Override
+    public String toString() {
+        return "BolsaPuntos{" + "id=" + id + ", cliente=" + cliente + ", fechaAsignacion=" + fechaAsignacion + ", fechaCaducidad=" + fechaCaducidad + ", puntosAsignados=" + puntosAsignados + ", puntosUtilizados=" + puntosUtilizados + ", puntosSaldo=" + puntosSaldo + ", montoOperacion=" + montoOperacion + '}';
+    }
     
 }
