@@ -21,12 +21,12 @@ import py.com.progweb.prueba.model.BolsaPuntos;
 import py.com.progweb.prueba.model.Cliente;
 
 @Stateless
-public class BolsaPuntosBean {
+public class BolsaPuntosDAO {
 
-    private static final Logger LOGGER = LogManager.getLogger(BolsaPuntosBean.class);
+    private static final Logger LOGGER = LogManager.getLogger(BolsaPuntosDAO.class);
 
     @Inject
-    private VencimientoPuntosBean vencimientoBean;
+    private VencimientoPuntosDAO vencimientoBean;
 
     @PersistenceContext(unitName = "puntosPU")
     private EntityManager em;

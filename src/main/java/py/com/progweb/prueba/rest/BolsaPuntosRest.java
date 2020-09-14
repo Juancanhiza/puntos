@@ -12,14 +12,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import py.com.progweb.prueba.ejb.BolsaPuntosBean;
+import py.com.progweb.prueba.ejb.BolsaPuntosDAO;
 import py.com.progweb.prueba.model.BolsaPuntos;
 
 @Path("/bolsas")
 public class BolsaPuntosRest {
 
     @Inject
-    private BolsaPuntosBean bolsaPuntosBean;
+    private BolsaPuntosDAO bolsaPuntosBean;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

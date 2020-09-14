@@ -11,7 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import py.com.progweb.prueba.ejb.ConceptoPuntosBean;
+import py.com.progweb.prueba.ejb.ConceptoPuntosDAO;
 import py.com.progweb.prueba.model.BolsaPuntos;
 import py.com.progweb.prueba.model.ConceptoPuntos;
 
@@ -21,7 +21,7 @@ import py.com.progweb.prueba.model.ConceptoPuntos;
 public class ConceptoPuntosRest {
 
     @Inject
-    private ConceptoPuntosBean ConceptoPuntosBean;
+    private ConceptoPuntosDAO ConceptoPuntosBean;
 
     @GET
     @Path("/")

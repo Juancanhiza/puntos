@@ -14,13 +14,13 @@ import py.com.progweb.prueba.model.UsoPuntosCabecera;
 import py.com.progweb.prueba.model.UsoPuntosDetalle;
 
 @Stateless
-public class UsoPuntosDetallesBean {
+public class UsoPuntosDetallesDAO {
     
     
-    private static final Logger LOGGER = LogManager.getLogger(UsoPuntosDetallesBean.class);
+    private static final Logger LOGGER = LogManager.getLogger(UsoPuntosDetallesDAO.class);
 
     @Inject
-    BolsaPuntosBean bolsaBean;
+    BolsaPuntosDAO bolsaBean;
     
     @PersistenceContext(unitName = "puntosPU")
     private EntityManager em;

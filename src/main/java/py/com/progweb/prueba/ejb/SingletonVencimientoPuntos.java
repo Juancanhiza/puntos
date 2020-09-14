@@ -17,12 +17,12 @@ import py.com.progweb.prueba.model.BolsaPuntos;
 
 @Startup
 @Singleton
-public class InitSingleton {
+public class SingletonVencimientoPuntos {
 
     @Inject
-    BolsaPuntosBean bolsaBean;
+    BolsaPuntosDAO bolsaBean;
 
-    private static final Logger LOGGER = LogManager.getLogger(InitSingleton.class);
+    private static final Logger LOGGER = LogManager.getLogger(SingletonVencimientoPuntos.class);
 
     @PostConstruct
     public void init() {

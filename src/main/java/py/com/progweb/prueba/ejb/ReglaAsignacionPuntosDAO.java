@@ -12,9 +12,9 @@ import org.apache.logging.log4j.Logger;
 import py.com.progweb.prueba.model.ReglaAsignacionPuntos;
 
 @Stateless
-public class ReglaAsignacionPuntosBean {
+public class ReglaAsignacionPuntosDAO {
 
-    private static final Logger LOGGER = LogManager.getLogger(ReglaAsignacionPuntosBean.class);
+    private static final Logger LOGGER = LogManager.getLogger(ReglaAsignacionPuntosDAO.class);
     @PersistenceContext(unitName = "puntosPU")
     private EntityManager em;
 

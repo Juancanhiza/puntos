@@ -12,7 +12,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import py.com.progweb.prueba.ejb.VencimientoPuntosBean;
+import py.com.progweb.prueba.ejb.VencimientoPuntosDAO;
 import py.com.progweb.prueba.model.BolsaPuntos;
 import py.com.progweb.prueba.model.VencimientoPuntos;
 
@@ -22,7 +22,7 @@ import py.com.progweb.prueba.model.VencimientoPuntos;
 public class VencimientoPuntosREST {
 
     @Inject
-    private VencimientoPuntosBean vencimientoPuntosBean;
+    private VencimientoPuntosDAO vencimientoPuntosBean;
 
     @GET
     @Path("/")

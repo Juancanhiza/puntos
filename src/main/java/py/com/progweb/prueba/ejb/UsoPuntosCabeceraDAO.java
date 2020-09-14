@@ -14,13 +14,13 @@ import py.com.progweb.prueba.model.ConceptoPuntos;
 import py.com.progweb.prueba.model.UsoPuntosCabecera;
 
 @Stateless
-public class UsoPuntosCabeceraBean {
+public class UsoPuntosCabeceraDAO {
 
     @Inject
-    ConceptoPuntosBean conceptoBean;
+    ConceptoPuntosDAO conceptoBean;
     
     @Inject
-    UsoPuntosDetallesBean usoDetalleBean;
+    UsoPuntosDetallesDAO usoDetalleBean;
     
     @PersistenceContext(unitName = "puntosPU")
     private EntityManager em;

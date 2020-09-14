@@ -5,7 +5,7 @@
  */
 package py.com.progweb.prueba.ejb;
 
-public class Constantes {
+public class ConstantesEmail {
 
     public static final String MAIL_USER = "afu.carpooling@gmail.com";
     public static final String MAIL_PASSWORD = "afu.carpooling2020";

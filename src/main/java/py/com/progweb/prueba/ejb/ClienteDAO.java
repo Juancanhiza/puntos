@@ -14,8 +14,8 @@ import org.apache.logging.log4j.Logger;
 import py.com.progweb.prueba.model.Cliente;
 
 @Stateless
-public class ClienteBean {
-    private static final Logger LOGGER = LogManager.getLogger(ClienteBean.class);
+public class ClienteDAO {
+    private static final Logger LOGGER = LogManager.getLogger(ClienteDAO.class);
     @PersistenceContext(unitName = "puntosPU")
     private EntityManager em;
 
@@ -28,7 +28,7 @@ public class ClienteBean {
         return (List<Cliente>) q.getResultList();
     }
 
-    public void eliminar(Long clienteId) {
+    public void eliminar(Integer clienteId) {
         Cliente c = em.find(Cliente.class, clienteId);
         this.em.remove(c);
     }

@@ -12,7 +12,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import py.com.progweb.prueba.ejb.UsoPuntosDetallesBean;
+import py.com.progweb.prueba.ejb.UsoPuntosDetallesDAO;
 import py.com.progweb.prueba.model.BolsaPuntos;
 import py.com.progweb.prueba.model.UsoPuntosDetalle;
 
@@ -22,7 +22,7 @@ import py.com.progweb.prueba.model.UsoPuntosDetalle;
 public class UsoPuntosDetallesRest {
 
     @Inject
-    private UsoPuntosDetallesBean usoPuntosDetallesBean;
+    private UsoPuntosDetallesDAO usoPuntosDetallesBean;
 
     @GET
     @Path("/")

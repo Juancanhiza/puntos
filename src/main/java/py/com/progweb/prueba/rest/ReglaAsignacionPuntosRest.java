@@ -12,7 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import py.com.progweb.prueba.ejb.ReglaAsignacionPuntosBean;
+import py.com.progweb.prueba.ejb.ReglaAsignacionPuntosDAO;
 import py.com.progweb.prueba.model.BolsaPuntos;
 import py.com.progweb.prueba.model.ReglaAsignacionPuntos;
 
@@ -20,7 +20,7 @@ import py.com.progweb.prueba.model.ReglaAsignacionPuntos;
 public class ReglaAsignacionPuntosRest {
 
     @Inject
-    private ReglaAsignacionPuntosBean reglaAsignacionPuntosBean;
+    private ReglaAsignacionPuntosDAO reglaAsignacionPuntosBean;
 
     @GET
     @Consumes(MediaType.APPLICATION_JSON)

@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import py.com.progweb.prueba.ejb.UsoPuntosCabeceraBean;
+import py.com.progweb.prueba.ejb.UsoPuntosCabeceraDAO;
 import py.com.progweb.prueba.model.BolsaPuntos;
 import py.com.progweb.prueba.model.UsoPuntosCabecera;
 
@@ -26,7 +26,7 @@ public class UsoPuntosCabeceraRest {
 
     private static final Logger LOGGER = LogManager.getLogger(UsoPuntosCabeceraRest.class);
     @Inject
-    private UsoPuntosCabeceraBean usoPuntosCabeceraBean;
+    private UsoPuntosCabeceraDAO usoPuntosCabeceraBean;
 
     @GET
     @Path("/")

@@ -12,14 +12,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import py.com.progweb.prueba.ejb.ClienteBean;
+import py.com.progweb.prueba.ejb.ClienteDAO;
 import py.com.progweb.prueba.model.Cliente;
 
 @Path("/clientes")
 public class ClienteRest {
 
     @EJB
-    private ClienteBean clienteBean;
+    private ClienteDAO clienteBean;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

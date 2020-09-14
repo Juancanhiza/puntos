@@ -33,7 +33,7 @@ public class AsyncBean {
         try {
             Session session = getSession();
             MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(Constantes.MAIL_USER));
+            message.setFrom(new InternetAddress(ConstantesEmail.MAIL_USER));
 
             for (String remitente : remitentes) {
                 message.addRecipient(RecipientType.TO, new InternetAddress(remitente));
@@ -42,7 +42,7 @@ public class AsyncBean {
             message.setContent(template, "text/html");
 
             Transport transport = session.getTransport("smtp");
-            transport.connect("smtp.gmail.com", Constantes.MAIL_USER, Constantes.MAIL_PASSWORD);
+            transport.connect("smtp.gmail.com", ConstantesEmail.MAIL_USER, ConstantesEmail.MAIL_PASSWORD);
 
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
@@ -60,8 +60,8 @@ public class AsyncBean {
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.starttls.required", "true");
         properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.username", Constantes.MAIL_USER);
-        properties.put("mail.smtp.password", Constantes.MAIL_PASSWORD);
+        properties.put("mail.smtp.username", ConstantesEmail.MAIL_USER);
+        properties.put("mail.smtp.password", ConstantesEmail.MAIL_PASSWORD);
         properties.put("mail.smtp.port", "465");
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");

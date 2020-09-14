@@ -8,7 +8,7 @@ import javax.persistence.Query;
 import py.com.progweb.prueba.model.ConceptoPuntos;
 
 @Stateless
-public class ConceptoPuntosBean {
+public class ConceptoPuntosDAO {
 
     @PersistenceContext(unitName = "puntosPU")
     private EntityManager em;
