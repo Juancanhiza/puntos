@@ -46,7 +46,7 @@ public class ClienteRest {
     @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response borrar(@QueryParam("id") Long idCliente) {
+    public Response borrar(@QueryParam("id") Integer idCliente) {
         clienteBean.eliminar(idCliente);
         return Response.ok().build();
     }
