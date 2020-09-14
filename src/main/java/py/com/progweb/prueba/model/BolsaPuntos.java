@@ -32,6 +32,12 @@ import javax.persistence.Temporal;
     @NamedQuery(
             name = "BolsaPuntos.clientesByVencimiento", 
             query = "SELECT b.cliente FROM BolsaPuntos b JOIN b.cliente c WHERE b.fechaCaducidad BETWEEN :fechaActual AND :fechaVencimiento"),
+     @NamedQuery(
+            name = "BolsaPuntos.byClienteEnOrden", 
+            query = "SELECT b FROM BolsaPuntos b WHERE b.cliente=:idCliente ORDER BY b.fechaAsignacion ASC"),
+     @NamedQuery(
+            name = "BolsaPuntos.vencidos", 
+            query = "SELECT b FROM BolsaPuntos b WHERE b.estado='ACTIVO' AND b.fechaCaducidad < :fechaActual"),
 })
 public class BolsaPuntos {
 
@@ -71,6 +77,18 @@ public class BolsaPuntos {
     @Column(name = "monto_operacion")
     @Basic(optional = false)
     private BigDecimal montoOperacion;
+    
+    @Column(name="estado", columnDefinition = "VARCHAR DEFAULT 'ACTIVO'")
+    @Basic(optional = false)
+    private String estado;
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 
     public Integer getId() {
         return id;
@@ -138,7 +156,7 @@ public class BolsaPuntos {
 
     @Override
     public String toString() {
-        return "BolsaPuntos{" + "id=" + id + ", cliente=" + cliente + ", fechaAsignacion=" + fechaAsignacion + ", fechaCaducidad=" + fechaCaducidad + ", puntosAsignados=" + puntosAsignados + ", puntosUtilizados=" + puntosUtilizados + ", puntosSaldo=" + puntosSaldo + ", montoOperacion=" + montoOperacion + '}';
+        return "BolsaPuntos{" + "id=" + id + ", cliente=" + cliente + ", fechaAsignacion=" + fechaAsignacion + ", fechaCaducidad=" + fechaCaducidad + ", puntosAsignados=" + puntosAsignados + ", puntosUtilizados=" + puntosUtilizados + ", puntosSaldo=" + puntosSaldo + ", montoOperacion=" + montoOperacion + ", estado=" + estado + '}';
     }
     
 }

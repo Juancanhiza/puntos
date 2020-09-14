@@ -34,17 +34,13 @@ public class UsoPuntosCabeceraBean {
         return (List<UsoPuntosCabecera>) q.getResultList();
     }
 
-    public void eliminar(Long uso_puntos_cabeceraId) {
-        this.em.getTransaction().begin();
+    public void eliminar(Integer uso_puntos_cabeceraId) {
         UsoPuntosCabecera uso = em.find(UsoPuntosCabecera.class, uso_puntos_cabeceraId);
         this.em.remove(uso);
-        this.em.getTransaction().commit();
     }
 
     public void actualizar(UsoPuntosCabecera uso) {
-        this.em.getTransaction().begin();
         this.em.merge(uso);
-        this.em.getTransaction().commit();
     }
     
     public List<UsoPuntosCabecera> listarByConcepto(Integer idConcepto){
@@ -69,7 +65,7 @@ public class UsoPuntosCabeceraBean {
         cliente.setId(idCliente);
         return (List<UsoPuntosCabecera>) q.setParameter("idCliente", cliente).getResultList();
     }
-
+    
     public void utilizarPuntos(Integer idCliente, Integer idConcepto) {
         Cliente cliente = new Cliente();
         cliente.setId(idCliente);

@@ -62,7 +62,7 @@ public class ClienteRest {
     @Path("/byApellido")
     @Produces(MediaType.APPLICATION_JSON)
     public Response listarByApellido(@QueryParam("apellido") String apellido) {
-        return Response.ok(clienteBean.listarByNombre(apellido)).build();
+        return Response.ok(clienteBean.listarByApellido(apellido)).build();
     }
     
     @GET

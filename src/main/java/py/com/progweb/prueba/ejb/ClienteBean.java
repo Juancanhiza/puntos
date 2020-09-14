@@ -29,16 +29,12 @@ public class ClienteBean {
     }
 
     public void eliminar(Long clienteId) {
-        this.em.getTransaction().begin();
         Cliente c = em.find(Cliente.class, clienteId);
         this.em.remove(c);
-        this.em.getTransaction().commit();
     }
 
     public void actualizar(Cliente cliente) {
-        this.em.getTransaction().begin();
         this.em.merge(cliente);
-        this.em.getTransaction().commit();
     }
     
     public List<Cliente> listarByNombre(String nombreCliente) {
@@ -56,8 +52,9 @@ public class ClienteBean {
     }
     
     public List<Cliente> listarByCumple(String cumple) throws ParseException {
-        LOGGER.info("CUMPLE: {}", cumple);
+        LOGGER.info("CUMPLE STRING: {}", cumple);
         Date fechaCumple = new SimpleDateFormat("dd/MM/yyyy").parse(cumple);
+         LOGGER.info("FECHA CUMPLEÑOS: {}", fechaCumple);
         Query q = this.em.createNamedQuery("Cliente.byCumple");
         
         
@@ -65,11 +62,15 @@ public class ClienteBean {
         
         LOGGER.info("LISTA DE TODOS: [{}]", todos);
         List<Cliente> listaCumple = new LinkedList<Cliente>();
-        Date fechaNacimiento = null;
+        Date fechaNacimiento;
         
         for (Cliente cliente : todos) {
              fechaNacimiento = cliente.getFechaNacimiento();
-            if (fechaNacimiento != null && fechaCumple != null && fechaNacimiento.getMonth() == fechaCumple.getMonth() && fechaNacimiento.getDay() == fechaCumple.getDay()){
+             
+            String fechaNacimientoString = new SimpleDateFormat("dd/MM").format(fechaNacimiento);
+            String fechaCumpleString = new SimpleDateFormat("dd/MM").format(fechaCumple);
+            if (fechaNacimiento != null && fechaCumple != null 
+                    && fechaNacimientoString.equals(fechaCumpleString)){
                 listaCumple.add(cliente);
             }
         }

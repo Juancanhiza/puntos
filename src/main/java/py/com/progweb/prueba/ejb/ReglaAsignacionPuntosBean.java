@@ -27,17 +27,13 @@ public class ReglaAsignacionPuntosBean {
         return (List<ReglaAsignacionPuntos>) q.getResultList();
     }
 
-    public void eliminar(Long regla_asignacion_puntosId) {
-        this.em.getTransaction().begin();
+    public void eliminar(Integer regla_asignacion_puntosId) {
         ReglaAsignacionPuntos regla = em.find(ReglaAsignacionPuntos.class, regla_asignacion_puntosId);
         this.em.remove(regla);
-        this.em.getTransaction().commit();
     }
 
     public void actualizar(ReglaAsignacionPuntos regla) {
-        this.em.getTransaction().begin();
         this.em.merge(regla);
-        this.em.getTransaction().commit();
     }
 
     public Map getCantidadDePuntos(Double monto) {
