@@ -16,7 +16,6 @@ import javax.ws.rs.core.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import py.com.progweb.prueba.ejb.UsoPuntosCabeceraDAO;
-import py.com.progweb.prueba.model.BolsaPuntos;
 import py.com.progweb.prueba.model.UsoPuntosCabecera;
 
 @Path("usos/cabeceras")

@@ -36,7 +36,7 @@ import javax.persistence.Temporal;
             name = "BolsaPuntos.byClienteEnOrden", 
             query = "SELECT b FROM BolsaPuntos b WHERE b.cliente=:idCliente ORDER BY b.fechaAsignacion ASC"),
      @NamedQuery(
-            name = "BolsaPuntos.vencidos", 
+            name = "BolsaPuntos.vencidas", 
             query = "SELECT b FROM BolsaPuntos b WHERE b.estado='ACTIVO' AND b.fechaCaducidad < :fechaActual"),
 })
 public class BolsaPuntos {

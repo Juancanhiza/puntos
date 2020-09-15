@@ -22,9 +22,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Stateless
-public class AsyncBean {
+public class EmailAsyncDAO {
 
-    private static final Logger LOGGER = LogManager.getLogger(AsyncBean.class);
+    private static final Logger LOGGER = LogManager.getLogger(EmailAsyncDAO.class);
 
     @Asynchronous
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)

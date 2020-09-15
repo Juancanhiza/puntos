@@ -5,6 +5,7 @@
  */
 package py.com.progweb.prueba.ejb;
 
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Schedule;
@@ -29,11 +30,12 @@ public class SingletonVencimientoPuntos {
         LOGGER.info("[Iniciando el singleton de BackEnd]");
     }
 
-    @Schedule(hour = "*", minute = "0", second = "*/1", persistent = false)
+    @Schedule(hour = "*/1", minute = "0", second = "0", persistent = false)
     public void actualizarBolsasPuntos() {
         LOGGER.info("[Actualizando la bolsa de puntos]");
         try {
-            List<BolsaPuntos> bolsasVencidas = bolsaBean.listarBolsasVencidas();
+            Date fechaActual = new Date();
+            List<BolsaPuntos> bolsasVencidas = bolsaBean.listarBolsasVencidas(fechaActual);
             for (BolsaPuntos bolsaVencida : bolsasVencidas) {
                 bolsaVencida.setEstado("VENCIDO");
                 bolsaBean.actualizar(bolsaVencida);

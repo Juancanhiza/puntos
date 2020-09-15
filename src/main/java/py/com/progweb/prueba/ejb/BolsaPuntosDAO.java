@@ -132,9 +132,9 @@ public class BolsaPuntosDAO {
                 .getResultList();
     }
 
-    public List<BolsaPuntos> listarBolsasVencidas() {
+    public List<BolsaPuntos> listarBolsasVencidas(Date fechaActual) {
         Query q = this.em.createNamedQuery("BolsaPuntos.vencidas");
-        return (List<BolsaPuntos>) q.getResultList();
+        return (List<BolsaPuntos>) q.setParameter("fechaActual", fechaActual).getResultList();
     }
 
 }
