@@ -78,5 +78,10 @@ public class ClienteDAO {
         
         return listaCumple;
     }
+
+    public Cliente getById(Integer idCliente) {
+        Cliente ret = this.em.find(Cliente.class, idCliente);
+        return ret;
+    }
     
 }

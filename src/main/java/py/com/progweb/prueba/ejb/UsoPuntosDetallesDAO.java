@@ -4,7 +4,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.apache.logging.log4j.LogManager;
@@ -30,7 +29,7 @@ public class UsoPuntosDetallesDAO {
     }
 
     public List<UsoPuntosDetalle> listar() {
-        Query q = this.em.createNativeQuery("UsoPuntosDetalle.all");
+        Query q = this.em.createNamedQuery("UsoPuntosDetalle.all");
         return (List<UsoPuntosDetalle>) q.getResultList();
     }
 
@@ -51,26 +50,28 @@ public class UsoPuntosDetallesDAO {
         int i = 0, montoBolsa;
         BolsaPuntos bolsaActual;
         
-        while (montoTotal>0){
+        while (montoTotal>0 && i < bolsas.size()){
             UsoPuntosDetalle usoDetalle = new UsoPuntosDetalle();
             usoDetalle.setCabecera(cabecera);
             bolsaActual = bolsas.get(i++);
+            usoDetalle.setBolsa(bolsaActual);
             montoBolsa = bolsaActual.getPuntosSaldo();
             
-            if (montoBolsa >= montoTotal){
+            if ( montoBolsa >= montoTotal ){
                 usoDetalle.setPuntosUtilizados(montoTotal);
                 bolsaActual.setPuntosUtilizados(bolsaActual.getPuntosUtilizados() + montoTotal);
                 bolsaActual.setPuntosSaldo(bolsaActual.getPuntosSaldo() - montoTotal);
                 bolsaBean.actualizar(bolsaActual);
                 montoTotal = 0;
-            }else {
+                this.agregar(usoDetalle);
+            }else if ( montoBolsa > 0 ){
                 usoDetalle.setPuntosUtilizados(montoBolsa);
                 bolsaActual.setPuntosUtilizados(bolsaActual.getPuntosAsignados());
                 bolsaActual.setPuntosSaldo(0);
                 bolsaBean.actualizar(bolsaActual);
                 montoTotal = montoTotal - montoBolsa;
+                this.agregar(usoDetalle);
             }
-            this.agregar(usoDetalle);
         }
     }
 

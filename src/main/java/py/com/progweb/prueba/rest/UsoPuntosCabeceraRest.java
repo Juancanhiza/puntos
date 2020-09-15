@@ -90,7 +90,6 @@ public class UsoPuntosCabeceraRest {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response utilizarPuntos(@PathParam("idCliente") Integer idCliente, @QueryParam("idConcepto") Integer idConcepto){
-        this.usoPuntosCabeceraBean.utilizarPuntos(idCliente, idConcepto);
-        return Response.ok().build();
+        return Response.ok(this.usoPuntosCabeceraBean.utilizarPuntos(idCliente, idConcepto)).build();
     }
 }

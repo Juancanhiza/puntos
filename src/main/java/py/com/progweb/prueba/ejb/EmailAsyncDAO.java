@@ -29,7 +29,7 @@ public class EmailAsyncDAO {
     @Asynchronous
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void sendHttpEmail(List<String> remitentes, String asunto, String template) {
-        LOGGER.info("IN: [{}, {}, {}]", remitentes, asunto, (template == null ? template : "Html largo"));
+        LOGGER.info("IN: [{}, {}, {}]", remitentes, asunto, (template == null ? template : ConstantesEmail.TEMPLATE));
         try {
             Session session = getSession();
             MimeMessage message = new MimeMessage(session);

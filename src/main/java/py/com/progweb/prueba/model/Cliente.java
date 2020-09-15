@@ -18,16 +18,13 @@ import javax.persistence.Temporal;
 @NamedQueries({
     @NamedQuery(
             name = "Cliente.all",
-            query = "SELECT c FROM Cliente c")
-    ,
+            query = "SELECT c FROM Cliente c"),
     @NamedQuery(
             name = "Cliente.byNombre",
-            query = "SELECT c FROM Cliente c WHERE c.nombre LIKE :nombreCliente")
-    ,
+            query = "SELECT c FROM Cliente c WHERE c.nombre LIKE :nombreCliente"),
     @NamedQuery(
             name = "Cliente.byApellido",
-            query = "SELECT c FROM Cliente c WHERE c.apellido LIKE :nombreApellido")
-    ,
+            query = "SELECT c FROM Cliente c WHERE c.apellido LIKE :nombreApellido"),
     @NamedQuery(
             name = "Cliente.byCumple",
             query = "SELECT c FROM Cliente c ")

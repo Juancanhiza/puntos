@@ -3,7 +3,10 @@ package py.com.progweb.prueba.ejb;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -17,10 +20,19 @@ import py.com.progweb.prueba.model.UsoPuntosCabecera;
 public class UsoPuntosCabeceraDAO {
 
     @Inject
-    ConceptoPuntosDAO conceptoBean;
+    ConceptoPuntosDAO conceptoDao;
     
     @Inject
-    UsoPuntosDetallesDAO usoDetalleBean;
+    UsoPuntosDetallesDAO usoDetalleDao;
+    
+    @Inject
+    BolsaPuntosDAO bolsaDao;
+    
+    @Inject
+    EmailAsyncDAO emailDao;
+    
+    @Inject
+    ClienteDAO clienteDao;
     
     @PersistenceContext(unitName = "puntosPU")
     private EntityManager em;
@@ -66,21 +78,37 @@ public class UsoPuntosCabeceraDAO {
         return (List<UsoPuntosCabecera>) q.setParameter("idCliente", cliente).getResultList();
     }
     
-    public void utilizarPuntos(Integer idCliente, Integer idConcepto) {
-        Cliente cliente = new Cliente();
-        cliente.setId(idCliente);
+    public Map utilizarPuntos(Integer idCliente, Integer idConcepto) {
+        Cliente cliente = clienteDao.getById(idCliente);
+        Map m = new HashMap();
+        ConceptoPuntos concepto = conceptoDao.getById(idConcepto);
         
-        ConceptoPuntos concepto = conceptoBean.getById(idConcepto);
-        
-        // Se crea el Uso Puntos cabecera
-        UsoPuntosCabecera cabecera =  new UsoPuntosCabecera();
-        cabecera.setConcepto(idConcepto);
-        cabecera.setCliente(cliente);
-        cabecera.setPuntosUtilizados(concepto.getPuntosRequeridos());
-        this.em.persist(cabecera);
-        
-        // Se crean los Uso Puntos Detalle
-        usoDetalleBean.agregarDetallesDeCabecera(cabecera);
-        
+        // Verificar si el cliente tiene bolsas suficientes para pagar el concepto
+        if (bolsaDao.tieneSaldoSuficiente(idCliente, concepto.getPuntosRequeridos())){
+            // Se crea el Uso Puntos cabecera
+            UsoPuntosCabecera cabecera =  new UsoPuntosCabecera();
+            Date fechaActual = new Date();
+            cabecera.setFecha(fechaActual);
+            cabecera.setConcepto(idConcepto);
+            cabecera.setCliente(cliente);
+            cabecera.setPuntosUtilizados(concepto.getPuntosRequeridos());
+            this.em.persist(cabecera);
+
+            // Se crean los Uso Puntos Detalle
+            usoDetalleDao.agregarDetallesDeCabecera(cabecera);
+            
+            // Se envia el correo
+            List <String> destinatarios = new LinkedList<String>();
+            destinatarios.add(cliente.getEmail());
+            emailDao.sendHttpEmail(destinatarios, "Comprobante de Utilizacion de Puntos", 
+                    ConstantesEmail.TEMPLATE.replace("{{}}", cliente.getNombre()).replace("[[]]", concepto.getPuntosRequeridos().toString()));
+            // Se crea el mensaje de respuesta
+            m.put("estado", 0);
+            m.put("mensaje", "Exito");
+            return m;
+        }
+        m.put("estado", -1);
+        m.put("mensaje", "El cliente no tiene puntos suficientes");
+        return m;
     }
 }

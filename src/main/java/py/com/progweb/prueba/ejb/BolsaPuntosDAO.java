@@ -137,4 +137,21 @@ public class BolsaPuntosDAO {
         return (List<BolsaPuntos>) q.setParameter("fechaActual", fechaActual).getResultList();
     }
 
+    public boolean tieneSaldoSuficiente(Integer idCliente, Integer puntosRequeridos) {
+        List<BolsaPuntos> bolsas = listarByClienteEnOrden(idCliente);
+        int i = 0, montoBolsa;
+        BolsaPuntos bolsaActual;
+        
+        while (puntosRequeridos>0 && i < bolsas.size()){
+            bolsaActual = bolsas.get(i++);
+            montoBolsa = bolsaActual.getPuntosSaldo();
+            if ( montoBolsa >= puntosRequeridos ){
+                return true;
+            }else {
+                puntosRequeridos = puntosRequeridos - montoBolsa;
+            }
+        }
+        
+        return puntosRequeridos == 0;
+    }
 }
