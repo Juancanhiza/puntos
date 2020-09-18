@@ -8,7 +8,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -86,10 +85,10 @@ public class UsoPuntosCabeceraRest {
     }
     
     @POST
-    @Path("/cargar/{idCliente}")
+    @Path("/cargar")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response utilizarPuntos(@PathParam("idCliente") Integer idCliente, @QueryParam("idConcepto") Integer idConcepto){
+    public Response utilizarPuntos(@QueryParam("idCliente") Integer idCliente, @QueryParam("idConcepto") Integer idConcepto){
         return Response.ok(this.usoPuntosCabeceraBean.utilizarPuntos(idCliente, idConcepto)).build();
     }
 }

@@ -14,7 +14,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.transaction.UserTransaction;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import py.com.progweb.prueba.model.BolsaPuntos;
@@ -27,6 +26,8 @@ public class BolsaPuntosDAO {
 
     @Inject
     private VencimientoPuntosDAO vencimientoBean;
+    
+    @Inject ReglaAsignacionPuntosDAO reglaBean;
 
     @PersistenceContext(unitName = "puntosPU")
     private EntityManager em;
@@ -97,9 +98,16 @@ public class BolsaPuntosDAO {
         return todos;
     }
 
-    public void cargarPuntos(Integer idCliente, Integer puntos) {
+    public void cargarPuntos(Integer idCliente, Double monto) {
         Cliente cliente = new Cliente();
         cliente.setId(idCliente);
+        
+        Map mapPuntos = reglaBean.getCantidadDePuntos(monto);
+        if (mapPuntos.get("estado").equals("-1")){
+            return;
+        } 
+        
+        Integer puntos = (Integer) mapPuntos.get("puntos");
 
         BolsaPuntos bolsa = new BolsaPuntos();
         bolsa.setCliente(cliente);

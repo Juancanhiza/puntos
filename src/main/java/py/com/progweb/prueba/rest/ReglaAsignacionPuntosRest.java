@@ -13,7 +13,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import py.com.progweb.prueba.ejb.ReglaAsignacionPuntosDAO;
-import py.com.progweb.prueba.model.BolsaPuntos;
 import py.com.progweb.prueba.model.ReglaAsignacionPuntos;
 
 @Path("reglas-asignaciones")
